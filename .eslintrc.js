@@ -7,21 +7,56 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
     ecmaFeatures: {
-      legacyDecorators: true
-    }
+      legacyDecorators: true,
+    },
   },
-  plugins: [
-    'ember'
-  ],
-  extends: [
-    'eslint:recommended',
-    'plugin:ember/recommended'
-  ],
+  plugins: ['ember', 'import', 'prefer-let'],
+  extends: ['eslint:recommended', 'plugin:ember/recommended'],
   env: {
-    browser: true
+    browser: true,
   },
   rules: {
-    'ember/no-jquery': 'error'
+    curly: ['error', 'all'],
+    'dot-notation': 'error',
+    eqeqeq: ['error', 'always'],
+    'max-statements-per-line': ['error', { max: 1 }],
+    'no-empty': ['error'],
+    'no-unused-vars': [
+      'error',
+      {
+        vars: 'all',
+        args: 'after-used',
+        ignoreRestSiblings: false,
+      },
+    ],
+    'no-useless-concat': 'error',
+    'no-useless-rename': 'error',
+    'object-shorthand': ['error', 'always'],
+    'one-var': [
+      'error',
+      {
+        uninitialized: 'always',
+        initialized: 'never',
+      },
+    ],
+    'prefer-spread': 'error',
+    'prefer-template': 'error',
+    quotes: ['error', 'single', { avoidEscape: true }],
+    'spaced-comment': ['error', 'always'],
+
+    'no-use-before-define': ['error', { functions: false }],
+
+    // Import plugin rules
+    'import/first': 2,
+    'import/newline-after-import': 2,
+
+    // Prefer let
+    'prefer-let/prefer-let': 2,
+
+    'ember/no-new-mixins': 0,
+    'ember/classic-decorator-hooks': 'error',
+    'ember/classic-decorator-no-classic-methods': 'error',
+    'ember/no-jquery': 'error',
   },
   overrides: [
     // node files
@@ -34,14 +69,14 @@ module.exports = {
         'blueprints/*/index.js',
         'config/**/*.js',
         'lib/*/index.js',
-        'server/**/*.js'
+        'server/**/*.js',
       ],
       parserOptions: {
-        sourceType: 'script'
+        sourceType: 'script',
       },
       env: {
         browser: false,
-        node: true
+        node: true,
       },
       plugins: ['node'],
       rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
@@ -49,8 +84,8 @@ module.exports = {
 
         // this can be removed once the following is fixed
         // https://github.com/mysticatea/eslint-plugin-node/issues/77
-        'node/no-unpublished-require': 'off'
-      })
-    }
-  ]
+        'node/no-unpublished-require': 'off',
+      }),
+    },
+  ],
 };
