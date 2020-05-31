@@ -1,0 +1,5 @@
+name: Deploy
+description: 'Build the app and upload the files to s3'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
