@@ -2,7 +2,7 @@
   <a href={{@post.url}} target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-blue-600 hover:underline">{{@post.title}}</a>
   <div class="text-xs mt-1 text-gray-500">
     <span class="mr-4">/r/{{@post.subreddit}}</span>
-    <span class="mr-4">{{moment-duration @post.ageMinutes "minutes"}} ago</span>
-    <span>{{pluralize @post.numComments "comment"}}</span>
+    <span class="mr-4">{{this.ageText}}</span>
+    <span>{{this.numCommentsText}}</span>
   </div>
 </div>
