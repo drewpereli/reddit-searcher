@@ -1,6 +1,18 @@
 import Controller from '@ember/controller';
-import foo from 'reddit-searcher/utils/get-posts';
+import { tracked } from '@glimmer/tracking';
+import getPosts from 'reddit-searcher/utils/get-posts';
 
 export default class IndexController extends Controller {
-  message = foo;
+  constructor() {
+    super(...arguments);
+    getPosts([
+      {
+        subredditName: 'cptsd',
+        minAgeMinutes: 60,
+        maxComments: 1,
+      },
+    ]).then(console.log);
+  }
+
+  @tracked posts;
 }
