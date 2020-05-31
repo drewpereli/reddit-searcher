@@ -1,6 +1,20 @@
+import ENV from 'reddit-searcher/config/environment';
 import fetch from 'fetch';
 
-export async function fetchSubredditListings(subredditName) {
+class SubredditParams {
+  constructor(schema) {
+    let defaults = {
+      minAgeMinutes: 60,
+      maxComments: 1,
+    };
+
+    Object.assign(this, defaults, schema);
+  }
+}
+
+const SUBREDDIT_PARAMS_LIST = ENV.subredditParams.map((schema) => new SubredditParams(schema));
+
+async function fetchSubredditListings(subredditName) {
   let response = await fetch(`https://www.reddit.com/r/${subredditName}/new.json?limit=100`);
   let json = await response.json();
   let listings = json.data.children.map((c) => c.data);
@@ -48,10 +62,10 @@ function formatListings(listings) {
   });
 }
 
-async function getPosts(subreddits) {
+async function getPosts() {
   let fetchListingPromises = [];
 
-  for (let subreddit of subreddits) {
+  for (let subreddit of SUBREDDIT_PARAMS_LIST) {
     let { subredditName, minAgeMinutes, maxComments } = subreddit;
     let promise = fetchSubredditListings(subredditName).then((listings) => {
       return filterSubredditListings({ listings, minAgeMinutes, maxComments });

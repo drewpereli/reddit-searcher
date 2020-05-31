@@ -1,6 +1,8 @@
 'use strict';
 
-module.exports = function(environment) {
+const subredditParams = require('./subreddit-params.json');
+
+module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'reddit-searcher',
     environment,
@@ -13,14 +15,14 @@ module.exports = function(environment) {
       },
       EXTEND_PROTOTYPES: {
         // Prevent Ember Data from overriding Date.parse.
-        Date: false
-      }
+        Date: false,
+      },
     },
 
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-    }
+    },
   };
 
   if (environment === 'development') {
@@ -46,6 +48,8 @@ module.exports = function(environment) {
   if (environment === 'production') {
     // here you can enable a production-specific feature
   }
+
+  ENV.subredditParams = subredditParams;
 
   return ENV;
 };
