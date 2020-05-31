@@ -2,6 +2,7 @@
   {
     "subredditName": "required",
     "minAgeMinutes": "optional -- defaults to 60",
+    "maxAgeMinutes": "optional -- defaults to 1440 (24 hours)",
     "maxComments": "optional -- defaults to 1"
   },
   {

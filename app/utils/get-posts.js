@@ -5,6 +5,7 @@ class SubredditParams {
   constructor(schema) {
     let defaults = {
       minAgeMinutes: 60,
+      maxAgeMinutes: 60 * 24,
       maxComments: 0,
     };
 
@@ -21,7 +22,7 @@ async function fetchSubredditListings(subredditName) {
   return listings;
 }
 
-function filterSubredditListings({ listings, minAgeMinutes, maxComments }) {
+function filterSubredditListings(listings, { minAgeMinutes, maxAgeMinutes, maxComments }) {
   return listings.filter((listing) => {
     if (listing.distinguished === 'moderator') {
       return false;
@@ -31,7 +32,9 @@ function filterSubredditListings({ listings, minAgeMinutes, maxComments }) {
       return false;
     }
 
-    if (getListingAgeMinutes(listing) < minAgeMinutes) {
+    let ageMinutes = getListingAgeMinutes(listing);
+
+    if (ageMinutes < minAgeMinutes || ageMinutes > maxAgeMinutes) {
       return false;
     }
 
@@ -66,10 +69,9 @@ function formatListings(listings) {
 async function getPosts() {
   let fetchListingPromises = [];
 
-  for (let subreddit of SUBREDDIT_PARAMS_LIST) {
-    let { subredditName, minAgeMinutes, maxComments } = subreddit;
-    let promise = fetchSubredditListings(subredditName).then((listings) => {
-      return filterSubredditListings({ listings, minAgeMinutes, maxComments });
+  for (let subredditParams of SUBREDDIT_PARAMS_LIST) {
+    let promise = fetchSubredditListings(subredditParams.subredditName).then((listings) => {
+      return filterSubredditListings(listings, subredditParams);
     });
     fetchListingPromises.push(promise);
   }
