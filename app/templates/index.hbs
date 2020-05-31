@@ -1,1 +1,3 @@
-{{this.message}}
+{{#each this.posts as |post|}}
+  <Post @post={{post}} />
+{{/each}}
