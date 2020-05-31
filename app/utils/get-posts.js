@@ -31,7 +31,7 @@ function filterSubredditListings({ listings, minAgeMinutes, maxComments }) {
       return false;
     }
 
-    if (getListingAgeMinutes({ listing }) < minAgeMinutes) {
+    if (getListingAgeMinutes(listing) < minAgeMinutes) {
       return false;
     }
 
