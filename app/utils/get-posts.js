@@ -5,7 +5,7 @@ class SubredditParams {
   constructor(schema) {
     let defaults = {
       minAgeMinutes: 60,
-      maxComments: 1,
+      maxComments: 0,
     };
 
     Object.assign(this, defaults, schema);
