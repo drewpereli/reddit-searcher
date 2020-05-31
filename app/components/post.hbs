@@ -1,3 +1,8 @@
-<div>
-  <a href={{@post.url}} target="_blank">{{@post.title}}</a>
+<div class="p-4 bg-gray-800 rounded my-1">
+  <a href={{@post.url}} target="_blank" rel="noopener noreferrer" class="text-gray-200 hover:text-gray-500 hover:underline">{{@post.title}}</a>
+  <div class="text-xs mt-1">
+    <span>/r/{{@post.subreddit}}</span>
+    <span>{{this.ageText}}</span>
+    <span>{{@post.numComments}} comment(s)</span>
+  </div>
 </div>
