@@ -1,8 +1,8 @@
 <div class="p-4 bg-gray-800 rounded my-1">
-  <a href={{@post.url}} target="_blank" rel="noopener noreferrer" class="text-gray-200 hover:text-gray-500 hover:underline">{{@post.title}}</a>
-  <div class="text-xs mt-1">
-    <span>/r/{{@post.subreddit}}</span>
-    <span>{{this.ageText}}</span>
+  <a href={{@post.url}} target="_blank" rel="noopener noreferrer" class="text-gray-300 hover:text-blue-600 hover:underline">{{@post.title}}</a>
+  <div class="text-xs mt-1 text-gray-500">
+    <span class="mr-4">/r/{{@post.subreddit}}</span>
+    <span class="mr-4">{{moment-duration @post.ageMinutes "minutes"}} ago</span>
     <span>{{@post.numComments}} comment(s)</span>
   </div>
 </div>
