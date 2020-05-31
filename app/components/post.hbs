@@ -3,6 +3,6 @@
   <div class="text-xs mt-1 text-gray-500">
     <span class="mr-4">/r/{{@post.subreddit}}</span>
     <span class="mr-4">{{moment-duration @post.ageMinutes "minutes"}} ago</span>
-    <span>{{@post.numComments}} comment(s)</span>
+    <span>{{pluralize @post.numComments "comment"}}</span>
   </div>
 </div>
