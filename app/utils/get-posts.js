@@ -48,10 +48,11 @@ function getListingAgeMinutes(listing) {
 
 function formatListings(listings) {
   return listings.map((listing) => {
-    let { subreddit, title, permalink, created_utc, num_comments } = listing;
+    let { id, subreddit, title, permalink, created_utc, num_comments } = listing;
     let createdAt = created_utc * 1000;
     let ageMinutes = getListingAgeMinutes(listing);
     return {
+      id,
       subreddit,
       title,
       url: `https://reddit.com${permalink}`,
