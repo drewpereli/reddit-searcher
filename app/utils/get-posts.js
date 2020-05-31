@@ -82,7 +82,7 @@ async function getPosts() {
 
   let formatted = formatListings(listings);
 
-  formatted.sort((a, b) => a.ageMinutes - b.ageMinutes);
+  formatted.sort((a, b) => b.ageMinutes - a.ageMinutes);
 
   return formatted;
 }
