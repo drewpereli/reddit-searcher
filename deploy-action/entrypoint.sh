@@ -22,7 +22,7 @@ npm i
 
 ember build --production
 
-if [$? -ne 0]; then
+if [ $? -ne 0 ]; then
   echo "ember build failed. Quitting."
   exit 1
 fi
@@ -46,7 +46,7 @@ sh -c "aws s3 sync ./dist s3://$AWS_S3_BUCKET/ \
               --no-progress \
               --delete"
 
-if [$? -ne 0]; then
+if [ $? -ne 0 ]; then
   echo "syncing s3 failed. Quitting."
   exit 1
 fi
