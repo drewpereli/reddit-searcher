@@ -1,38 +1,48 @@
-<div ...attributes>
-  <div class="flex justify-start">
-    <form class="inline-flex flex-col p-4 bg-black text-sm">
-      <TextInput @prefix="/r/" @value={{this.newParamsSubredditName}} class="my-1 justify-end whitespace-no-wrap" />
-      <TextInput @label="Minimum Age (minutes)" @value={{this.newParamsMinAgeMinutes}} class="my-1 justify-end whitespace-no-wrap" />
-      <TextInput @label="Maximum Age (minutes)" @value={{this.newParamsMaxAgeMinutes}} class="my-1 justify-end whitespace-no-wrap" />
-      <TextInput @label="Maximum Comments" @value={{this.newParamsMaxComments}} class="my-1 justify-end whitespace-no-wrap" />
-      <TaskButton @text="Add Subreddit" @color="green" @task={{this.onAddParams}} class="mt-2" />
-    </form>
-    <div class="m-2">
-      <table class="rounded bg-black text-gray-400 text-xs">
-        <thead>
-          <tr class="">
-            <th class="p-2 border border-gray-600">Subreddit</th>
-            <th class="p-2 border border-gray-600">Maximum Comments</th>
-            <th class="p-2 border border-gray-600">Minimum Age (minutes)</th>
-            <th class="p-2 border border-gray-600">Maximum Age (minutes)</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each @paramsList as |params|}}
+<div class="bg-blue-900 p-4 rounded text-gray-400" ...attributes>
+  <h2
+    {{on "click" this.toggleOpen}}
+    role="button"
+    class="inline-flex items-center hover:text-gray-500 font-semibold"
+  >
+    Subreddits
+    <Chevron @direction={{if this.isOpen "down" "right"}} class="w-4 ml-2" />
+  </h2>
+  {{#if this.isOpen}}
+    <div class="flex justify-start items-start mt-4">
+      <form class="inline-flex flex-col p-4 bg-black text-sm border border-gray-600 rounded">
+        <TextInput @prefix="/r/" @value={{this.newParamsSubredditName}} class="my-1 justify-end whitespace-no-wrap" />
+        <TextInput @label="Minimum Age (minutes)" @value={{this.newParamsMinAgeMinutes}} class="my-1 justify-end whitespace-no-wrap" />
+        <TextInput @label="Maximum Age (minutes)" @value={{this.newParamsMaxAgeMinutes}} class="my-1 justify-end whitespace-no-wrap" />
+        <TextInput @label="Maximum Comments" @value={{this.newParamsMaxComments}} class="my-1 justify-end whitespace-no-wrap" />
+        <TaskButton @text="Add Subreddit" @color="green" @task={{this.onAddParams}} class="mt-2" />
+      </form>
+      <div class="ml-2 rounded border border-gray-600 overflow-hidden bg-black text-xs">
+        <table>
+          <thead>
             <tr>
-              <td class="p-2 border border-gray-600">
-                <div class="flex justify-between items-center">
-                  <span class="mr-2">/r/{{params.subredditName}}</span>
-                  <TaskButton @text="Delete" @color="red" @task={{@onDeleteParams}} @params={{params}} />
-                </div>
-              </td>
-              <td class="p-2 border border-gray-600">{{params.maxComments}}</td>
-              <td class="p-2 border border-gray-600">{{params.minAgeMinutes}}</td>
-              <td class="p-2 border border-gray-600">{{params.maxAgeMinutes}}</td>
+              <th class="p-2 border-r border-gray-600">Subreddit</th>
+              <th class="p-2 border-r border-gray-600">Maximum Comments</th>
+              <th class="p-2 border-r border-gray-600">Minimum Age (minutes)</th>
+              <th class="p-2">Maximum Age (minutes)</th>
             </tr>
-          {{/each}}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {{#each @paramsList as |params|}}
+              <tr class="border-t border-gray-600">
+                <td class="p-2 border-r border-gray-600">
+                  <div class="flex justify-between items-center">
+                    <a href="https://reddit.com/r/{{params.subredditName}}" target="_blank" rel="noopener noreferrer" class="mr-2 hover:text-blue-400 hover:underline">/r/{{params.subredditName}}</a>
+                    <TaskButton @text="Delete" @color="red" @task={{@onDeleteParams}} @params={{params}} />
+                  </div>
+                </td>
+                <td class="p-2 border-r border-gray-600">{{params.maxComments}}</td>
+                <td class="p-2 border-r border-gray-600">{{params.minAgeMinutes}}</td>
+                <td class="p-2">{{params.maxAgeMinutes}}</td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
+  {{/if}}
 </div>

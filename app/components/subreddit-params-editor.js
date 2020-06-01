@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { action } from '@ember/object';
 import { task } from 'ember-concurrency-decorators';
 
 /**
@@ -8,6 +9,8 @@ import { task } from 'ember-concurrency-decorators';
  * @param {task} onDeleteParams
  */
 export default class SubredditParamsEditorComponent extends Component {
+  @tracked isOpen = true;
+
   @tracked newParamsSubredditName = '';
   @tracked newParamsMinAgeMinutes = 60;
   @tracked newParamsMaxAgeMinutes = 60 * 24;
@@ -20,6 +23,11 @@ export default class SubredditParamsEditorComponent extends Component {
       maxAgeMinutes: this.newParamsMaxAgeMinutes,
       maxComments: this.newParamsMaxComments,
     };
+  }
+
+  @action
+  toggleOpen() {
+    this.isOpen = !this.isOpen;
   }
 
   @task
