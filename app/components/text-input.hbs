@@ -1,0 +1,15 @@
+<div class="flex items-center font-mono" ...attributes>
+  {{#if @label}}
+    <label class="mr-2">{{@label}}</label>
+  {{/if}}
+  {{#if @prefix}}
+    <span class="bg-gray-700 px-1 rounded-l">{{@prefix}}</span>
+  {{/if}}
+  <Input
+    required={{this.required}}
+    @type={{this.type}}
+    min={{this.min}}
+    @value={{@value}}
+    class="px-1 bg-gray-300 text-gray-800 focus:outline-none rounded"
+  />
+</div>

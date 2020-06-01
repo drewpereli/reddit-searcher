@@ -15,12 +15,6 @@ if [ -z "$AWS_S3_BUCKET" ]; then
   exit 1
 fi
 
-if [ -z "$SUBREDDIT_PARAMS" ]; then
-  echo "SUBREDDIT_PARAMS is not set. Quitting."
-  exit 1
-fi
-
-echo $SUBREDDIT_PARAMS > ./config/subreddit-params.json
 
 npm install -g ember-cli
 

@@ -1,19 +1,4 @@
-import ENV from 'reddit-searcher/config/environment';
 import fetch from 'fetch';
-
-class SubredditParams {
-  constructor(schema) {
-    let defaults = {
-      minAgeMinutes: 60,
-      maxAgeMinutes: 60 * 24,
-      maxComments: 0,
-    };
-
-    Object.assign(this, defaults, schema);
-  }
-}
-
-const SUBREDDIT_PARAMS_LIST = ENV.subredditParams.map((schema) => new SubredditParams(schema));
 
 async function fetchSubredditListings(subredditName) {
   let response = await fetch(`https://www.reddit.com/r/${subredditName}/new.json?limit=100`);
@@ -66,10 +51,10 @@ function formatListings(listings) {
   });
 }
 
-async function getPosts() {
+export async function getPosts(paramsList) {
   let fetchListingPromises = [];
 
-  for (let subredditParams of SUBREDDIT_PARAMS_LIST) {
+  for (let subredditParams of paramsList) {
     let promise = fetchSubredditListings(subredditParams.subredditName).then((listings) => {
       return filterSubredditListings(listings, subredditParams);
     });
@@ -87,4 +72,11 @@ async function getPosts() {
   return formatted;
 }
 
-export default getPosts;
+export async function subredditExists(subredditName) {
+  try {
+    let response = await fetch(`https://www.reddit.com/r/${subredditName}/new.json`);
+    return response.ok;
+  } catch (error) {
+    return false;
+  }
+}

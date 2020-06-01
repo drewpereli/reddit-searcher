@@ -1,7 +1,5 @@
 'use strict';
 
-const subredditParams = require('./subreddit-params.json');
-
 module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'reddit-searcher',
@@ -48,8 +46,6 @@ module.exports = function (environment) {
   if (environment === 'production') {
     // here you can enable a production-specific feature
   }
-
-  ENV.subredditParams = subredditParams;
 
   return ENV;
 };

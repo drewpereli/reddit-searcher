@@ -1,5 +1,25 @@
 <div class="p-4">
-  {{#each this.posts as |post|}}
-    <Post @post={{post}} />
-  {{/each}}
+
+  <div class="h-8 rounded py-1 px-2 mb-4 {{unless this.flashMessage.show "opacity-0 duration-1000 transition-opacity"}} bg-{{this.flashMessage.color}}-400 text-{{this.flashMessage.color}}-900">{{this.flashMessage.text}}</div>
+
+  <SubredditParamsEditor
+    @paramsList={{this.postParamsList}}
+    @onAddParams={{this.onAddParams}}
+    @onDeleteParams={{this.onDeleteParams}}
+    class="mb-4"
+  />
+
+  <div>
+    {{#each this.posts as |post|}}
+      <Post @post={{post}} />
+    {{else}}
+      {{#if this.refreshPosts.isRunning}}
+        Fetching posts...
+      {{else if this.hasParams}}
+        No posts matching the criteria were found
+      {{else}}
+        Add some subreddits to get started
+      {{/if}}
+    {{/each}}
+  </div>
 </div>

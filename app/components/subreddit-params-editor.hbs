@@ -1,0 +1,38 @@
+<div ...attributes>
+  <div class="flex justify-start">
+    <form class="inline-flex flex-col p-4 bg-black text-sm">
+      <TextInput @prefix="/r/" @value={{this.newParamsSubredditName}} class="my-1 justify-end whitespace-no-wrap" />
+      <TextInput @label="Minimum Age (minutes)" @value={{this.newParamsMinAgeMinutes}} class="my-1 justify-end whitespace-no-wrap" />
+      <TextInput @label="Maximum Age (minutes)" @value={{this.newParamsMaxAgeMinutes}} class="my-1 justify-end whitespace-no-wrap" />
+      <TextInput @label="Maximum Comments" @value={{this.newParamsMaxComments}} class="my-1 justify-end whitespace-no-wrap" />
+      <TaskButton @text="Add Subreddit" @color="green" @task={{this.onAddParams}} class="mt-2" />
+    </form>
+    <div class="m-2">
+      <table class="rounded bg-black text-gray-400 text-xs">
+        <thead>
+          <tr class="">
+            <th class="p-2 border border-gray-600">Subreddit</th>
+            <th class="p-2 border border-gray-600">Maximum Comments</th>
+            <th class="p-2 border border-gray-600">Minimum Age (minutes)</th>
+            <th class="p-2 border border-gray-600">Maximum Age (minutes)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each @paramsList as |params|}}
+            <tr>
+              <td class="p-2 border border-gray-600">
+                <div class="flex justify-between items-center">
+                  <span class="mr-2">/r/{{params.subredditName}}</span>
+                  <TaskButton @text="Delete" @color="red" @task={{@onDeleteParams}} @params={{params}} />
+                </div>
+              </td>
+              <td class="p-2 border border-gray-600">{{params.maxComments}}</td>
+              <td class="p-2 border border-gray-600">{{params.minAgeMinutes}}</td>
+              <td class="p-2 border border-gray-600">{{params.maxAgeMinutes}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
