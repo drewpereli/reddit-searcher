@@ -27,6 +27,13 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+cd dist
+
+# Remove unnecessary fioes
+rm -rf ember-welcome-page
+
+
+
 AWS_REGION="us-east-1"
 
 # Create a dedicated profile for this action to avoid conflicts
@@ -41,7 +48,7 @@ EOF
 
 # Sync using our dedicated profile and suppress verbose messages.
 # All other flags are optional via the `args:` directive.
-sh -c "aws s3 sync ./dist s3://$AWS_S3_BUCKET/ \
+sh -c "aws s3 sync . s3://$AWS_S3_BUCKET/ \
               --profile s3-sync-action \
               --no-progress \
               --delete"
