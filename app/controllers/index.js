@@ -12,7 +12,7 @@ export default class IndexController extends Controller {
 
       setInterval(() => {
         this.refreshPosts.perform();
-      }, 10000);
+      }, 3000);
     }, 0);
   }
 
